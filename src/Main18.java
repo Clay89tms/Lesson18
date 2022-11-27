@@ -1,5 +1,6 @@
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
+import javax.xml.bind.UnmarshalException;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -13,7 +14,7 @@ import java.util.regex.Pattern;
 public class Main18 {
     static String scPathFind;
 
-    public static void main(String[] args) throws JAXBException, IOException, NullPointerException {
+    public static void main(String[] args) throws JAXBException, IOException {
 
         try (Scanner scanner = new Scanner(System.in)) {
             System.out.print("Enter Path:\n>>>");
@@ -23,10 +24,14 @@ public class Main18 {
             File path = new File(scPath);
             File[] paths = path.listFiles();
             findFile(paths, scPath);
+
             LineJAXB lineJAXB = new LineJAXB();
             lineScan(scPathFind);
-        } catch (NullPointerException e){
-            System.out.println("file have NULL");
+
+        }catch (NullPointerException npe){
+            System.out.println("Path is Bad");
+        }catch (UnmarshalException un) {
+            System.out.println("File is Null");
         }
     }
 
@@ -43,12 +48,12 @@ public class Main18 {
                 }
             }
             System.out.print("Enter number file: ");
-        }
-        if (!scEnter.hasNextLine()) {
-            int enterFile = scEnter.nextInt();
-            if ((enterFile >= 0) && (enterFile < paths.length)) {
-                System.out.println(paths[enterFile].getName());
-                scPathFind = scPath + "\\" + paths[enterFile].getName();
+            if (scEnter.hasNextInt()) {
+                int enterFile = scEnter.nextInt();
+                if ((enterFile >= 0) && (enterFile < paths.length)) {
+                    System.out.println(paths[enterFile].getName());
+                    scPathFind = scPath + "\\" + paths[enterFile].getName();
+                }
             }
         }
         return scPathFind;
