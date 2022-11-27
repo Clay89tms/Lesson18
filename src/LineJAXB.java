@@ -12,7 +12,29 @@ public class LineJAXB {
     private String lastName;
     private String title;
 
+    public String line;
+
     public LineJAXB() {
+    }
+
+    public LineJAXB(String line) {
+        this.line = line;
+    }
+
+    public String getLine() {
+        return line;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getTitle() {
+        return title;
     }
 
     public LineJAXB(String firstName, String lastName, String title) {
